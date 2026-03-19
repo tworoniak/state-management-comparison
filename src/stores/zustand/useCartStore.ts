@@ -1,10 +1,16 @@
 import { create } from 'zustand';
 import type { CartState, Product } from '../../types';
+import { actionLog } from '../../lib/actionLog';
 
-export const useCartStore = create<CartState>((set, get) => ({
+export const useCartStore = create<CartState>((set) => ({
   items: [],
 
-  addItem: (product: Product) =>
+  addItem: (product: Product) => {
+    actionLog.dispatch({
+      library: 'zustand',
+      action: 'addItem',
+      payload: product.name,
+    });
     set((state) => {
       const existing = state.items.find((i) => i.product.id === product.id);
       if (existing) {
@@ -17,14 +23,26 @@ export const useCartStore = create<CartState>((set, get) => ({
         };
       }
       return { items: [...state.items, { product, quantity: 1 }] };
-    }),
+    });
+  },
 
-  removeItem: (productId) =>
+  removeItem: (productId) => {
+    actionLog.dispatch({
+      library: 'zustand',
+      action: 'removeItem',
+      payload: productId,
+    });
     set((state) => ({
       items: state.items.filter((i) => i.product.id !== productId),
-    })),
+    }));
+  },
 
-  updateQuantity: (productId, quantity) =>
+  updateQuantity: (productId, quantity) => {
+    actionLog.dispatch({
+      library: 'zustand',
+      action: 'updateQuantity',
+      payload: { productId, quantity },
+    });
     set((state) => ({
       items:
         quantity <= 0
@@ -32,17 +50,11 @@ export const useCartStore = create<CartState>((set, get) => ({
           : state.items.map((i) =>
               i.product.id === productId ? { ...i, quantity } : i,
             ),
-    })),
-
-  clearCart: () => set({ items: [] }),
-
-  get totalItems() {
-    return get().items.reduce((sum, i) => sum + i.quantity, 0);
+    }));
   },
-  get totalPrice() {
-    return get().items.reduce(
-      (sum, i) => sum + i.product.price * i.quantity,
-      0,
-    );
+
+  clearCart: () => {
+    actionLog.dispatch({ library: 'zustand', action: 'clearCart' });
+    set({ items: [] });
   },
 }));

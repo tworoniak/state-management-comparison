@@ -57,7 +57,7 @@ export function CartSidebar({
             <div className='flex justify-between items-center'>
               <span className='text-sm text-zinc-500'>Total</span>
               <span className='font-bold text-zinc-900'>
-                ${totalPrice.toFixed(2)}
+                ${(totalPrice ?? 0).toFixed(2)}
               </span>
             </div>
             <button
