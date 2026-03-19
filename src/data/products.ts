@@ -1,0 +1,68 @@
+import type { Product } from '../types';
+
+export const products: Product[] = [
+  {
+    id: '1',
+    name: 'Mechanical Keyboard',
+    price: 149.99,
+    category: 'Peripherals',
+    image: '⌨️',
+    rating: 4.8,
+  },
+  {
+    id: '2',
+    name: 'Ultrawide Monitor',
+    price: 599.99,
+    category: 'Displays',
+    image: '🖥️',
+    rating: 4.6,
+  },
+  {
+    id: '3',
+    name: 'Ergonomic Mouse',
+    price: 79.99,
+    category: 'Peripherals',
+    image: '🖱️',
+    rating: 4.5,
+  },
+  {
+    id: '4',
+    name: 'USB-C Hub',
+    price: 49.99,
+    category: 'Accessories',
+    image: '🔌',
+    rating: 4.3,
+  },
+  {
+    id: '5',
+    name: 'Webcam 4K',
+    price: 129.99,
+    category: 'Peripherals',
+    image: '📷',
+    rating: 4.7,
+  },
+  {
+    id: '6',
+    name: 'Desk Lamp',
+    price: 39.99,
+    category: 'Accessories',
+    image: '💡',
+    rating: 4.4,
+  },
+  {
+    id: '7',
+    name: 'Cable Management Kit',
+    price: 19.99,
+    category: 'Accessories',
+    image: '🗂️',
+    rating: 4.2,
+  },
+  {
+    id: '8',
+    name: 'Laptop Stand',
+    price: 59.99,
+    category: 'Accessories',
+    image: '💻',
+    rating: 4.6,
+  },
+];
