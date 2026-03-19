@@ -4,15 +4,18 @@ import { CartSidebar } from '../cart/CartSidebar';
 import { products } from '../../data/products';
 
 export function ZustandCart() {
-  const {
-    items,
-    addItem,
-    removeItem,
-    updateQuantity,
-    clearCart,
-    totalItems,
-    totalPrice,
-  } = useCartStore();
+  const items = useCartStore((state) => state.items);
+  const addItem = useCartStore((state) => state.addItem);
+  const removeItem = useCartStore((state) => state.removeItem);
+  const updateQuantity = useCartStore((state) => state.updateQuantity);
+  const clearCart = useCartStore((state) => state.clearCart);
+
+  const totalItems = items.reduce((sum, i) => sum + i.quantity, 0);
+  const totalPrice = items.reduce(
+    (sum, i) => sum + i.product.price * i.quantity,
+    0,
+  );
+
   const getQuantity = (id: string) =>
     items.find((i) => i.product.id === id)?.quantity ?? 0;
 

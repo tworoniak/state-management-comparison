@@ -1,8 +1,6 @@
 import { useAtomValue, useSetAtom } from 'jotai';
 import {
   cartItemsAtom,
-  totalItemsAtom,
-  totalPriceAtom,
   addItemAtom,
   removeItemAtom,
   updateQuantityAtom,
@@ -14,12 +12,16 @@ import { products } from '../../data/products';
 
 export function JotaiCart() {
   const items = useAtomValue(cartItemsAtom);
-  const totalItems = useAtomValue(totalItemsAtom);
-  const totalPrice = useAtomValue(totalPriceAtom);
   const addItem = useSetAtom(addItemAtom);
   const removeItem = useSetAtom(removeItemAtom);
   const updateQuantityAction = useSetAtom(updateQuantityAtom);
   const clearCart = useSetAtom(clearCartAtom);
+
+  const totalItems = items.reduce((sum, i) => sum + i.quantity, 0);
+  const totalPrice = items.reduce(
+    (sum, i) => sum + i.product.price * i.quantity,
+    0,
+  );
 
   const getQuantity = (id: string) =>
     items.find((i) => i.product.id === id)?.quantity ?? 0;
